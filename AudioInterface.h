@@ -27,14 +27,14 @@ public:
 private:
 
 
-	static AudioInterface *_instance;
+	static AudioInterface *instance;
 
-	float _out;
-	bool _running;
-	int _sample_rate;
-	int _frames_per_buffer;
-	IAudioModule *_lSrc;
-	IAudioModule *_rSrc;
+	float m_out;
+	bool m_running;
+	int m_sample_rate;
+	int m_frames_per_buffer;
+	IAudioModule *m_lSrc;
+	IAudioModule *m_rSrc;
 
 
 };
