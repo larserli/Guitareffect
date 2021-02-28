@@ -20,6 +20,10 @@
 #include "MeanTrigger.h"
 
 int main(){
+	//Auto wah
+	//input -> amp ------------------>filter--> amp --> output
+	//          |                       |
+	//          -> trigger -> envelope --
 	Amp pregain;
 	pregain.SetSource(AudioInterface::Instance());
 	pregain.SetLevel(3.0f);
@@ -28,9 +32,6 @@ int main(){
 	trigger.setSource(&pregain);
 	trigger.setLevel(0.2f, 0.02f);
 
-	Distortion dist;
-	dist.setSource(&pregain);
-	dist.setGain(5.0f);
 
 	Envelope env(AudioInterface::Instance(), 0.1f, 1.0f, 0.8f, 1.0f);
 	trigger.setActionOn([&]()->void{env.KeyDown();});
@@ -38,7 +39,7 @@ int main(){
 
 	Filter filter(AudioInterface::Instance(), Filter::FilterType::LOWPASS);
 	filter.setCutoff(5000.0f);
-	filter.setSource(&dist);
+	filter.setSource(&pregain);
 	filter.setMod(&env, 0.0f, 1.0f, 400.0f);
 
 	Amp master;
